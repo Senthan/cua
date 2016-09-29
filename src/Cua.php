@@ -7,7 +7,6 @@ use GuzzleHttp\RequestOptions as GuzzleRequestOptions;
 class Cua
 {
     const VERSION = '1.0.0';
-    const CUA_API_BASE_URI = 'http://dd5-3.lh/';
     const GET_LIST_API = 'api/campaign-subscriber';
     const GET_GROUP_API = 'api/campaign-subscriber/group/{campaignSubscriber}';
     const GET_GROUP_LIST_API = 'api/campaign-subscriber/group/{campaignSubscriber}/lists';
@@ -21,12 +20,14 @@ class Cua
     protected $headers = [];
     protected $promises = [];
     protected $lastResponse;
-    public function __construct($access_token, $isAsyncRequest = false, $httpClient = null)
+    protected $cuaApiBabeUri;
+    public function __construct($access_token, $cuaApiBabeUri, $isAsyncRequest = false, $httpClient = null)
     {
         $this->access_token = $access_token;
+        $this->cuaApiBabeUri = $cuaApiBabeUri;
         $this->isAsyncRequest = $isAsyncRequest;
         $this->client = $httpClient ?: new Client([
-            'base_uri' => self::CUA_API_BASE_URI,
+            'base_uri' => $this->cuaApiBabeUri,
             'timeout' => self::DEFAULT_TIMEOUT,
             'connect_timeout' => self::DEFAULT_TIMEOUT,
         ]);

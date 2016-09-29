@@ -25,6 +25,7 @@ class CUAServiceProvider extends ServiceProvider
             $config = $app['config'];
             return new Cua(
                 $config->get('cua.access_token', null),
+                $config->get('cua.cua_api_babe_uri', null),
                 $config->get('cua.async_requests', false)
             );
         });
